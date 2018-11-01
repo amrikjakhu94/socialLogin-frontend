@@ -1,0 +1,56 @@
+<div class="row" style="margin:0 auto;">
+    <div class="col col-md-6">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+            <label>Name</label>
+            <input class="form-control" type="text" formControlName="name" placeholder="Enter name" required />
+            <div *ngIf="signUpForm.controls['name'].errors && (signUpForm.controls['name'].dirty || signUpForm.controls['name'].touched)">
+              <span class="redxx" *ngIf="signUpForm.controls['name'].errors.required">
+                Name is required.
+              </span>
+              <span class="redxx" *ngIf="signUpForm.controls['name'].errors.pattern">
+                Name is invalid.
+              </span>
+            </div>
+            <hr>
+
+            <label>Email</label>
+            <input class="form-control" type="text" formControlName="email" placeholder="Enter email" required />
+            <div *ngIf="signUpForm.controls['email'].errors && (signUpForm.controls['email'].dirty || signUpForm.controls['email'].touched)">
+              <span class="redxx" *ngIf="signUpForm.controls['email'].errors.required">
+                Email is required.
+              </span>
+              <span class="redxx" *ngIf="signUpForm.controls['email'].errors.pattern">
+                Email is invalid.
+              </span>
+            </div>
+            <hr>
+
+            <label>Password</label>
+            <input class="form-control" type="password" formControlName="password" placeholder="Password" required />
+            <div *ngIf="signUpForm.controls['password'].errors && (signUpForm.controls['password'].dirty || signUpForm.controls['password'].touched)">
+              <span class="redxx" *ngIf="signUpForm.controls['password'].errors.required">
+                Password is required.
+              </span>
+              <span class="redxx" *ngIf="signUpForm.controls['password'].errors.pattern">
+                Password must be at least 8 characters, and must include at least one numeric digit one upercase alphabet.
+              </span>
+            </div>
+            <hr>
+
+            <label>Confirm password</label>
+            <input class="form-control" type="password" formControlName="confirmpassword" placeholder="Confirn password" required />
+            <div *ngIf="signUpForm.controls['confirmpassword'].errors && (signUpForm.controls['confirmpassword'].dirty || signUpForm.controls['confirmpassword'].touched)">
+              <span class="redxx" *ngIf="signUpForm.controls['confirmpassword'].errors.required">
+                Password is required.
+              </span>
+              <span class="redxx" *ngIf="signUpForm.controls['confirmpassword'].errors.pattern">
+                Password must be at least 8 characters, and must include at least one numeric digit one upercase alphabet.
+              </span>
+            </div>
+            <hr>
+
+            <button [disabled]="!signUpForm.valid" class="btn btn-primary" type="submit">SignUp</button>
+        </form>
+    </div>
+</div>
