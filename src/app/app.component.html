@@ -5,8 +5,8 @@
       Welcome to {{ title }}!
     </h2>
   
-    <ul>
-      <li>
+    <ul *ngIf="isLogin">
+      <li >
         <a routerLink="/" routerLinkActive="active">Sign in</a>
       </li>
       <li>

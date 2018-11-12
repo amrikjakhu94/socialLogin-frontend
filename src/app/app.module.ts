@@ -13,6 +13,8 @@ import { SigninComponent } from './signin/signin.component';
 import { ApiService } from './core/services/api.service';
 import { SetnewpasswordComponent } from './setnewpassword/setnewpassword.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { JwtService } from './core/services/jwt.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -36,7 +38,8 @@ export function getAuthServiceConfigs() {
     SignupComponent,
     SigninComponent,
     SetnewpasswordComponent,
-    ForgotpasswordComponent
+    ForgotpasswordComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ export function getAuthServiceConfigs() {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
     },
-    ApiService
+    ApiService,
+    JwtService
   ],
   bootstrap: [AppComponent]
 })

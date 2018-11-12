@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from 'ng-social';
 import { ApiService } from '../core/services/api.service';
+import { JwtService } from '../core/services/jwt.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -12,10 +14,14 @@ export class SigninComponent implements OnInit {
   title = 'socialLogin-ng';
   signInForm : FormGroup;
   signInDetails : Object;
+  token: string;
+  isLogin: boolean;
 
   constructor(private socialAuthService : SocialAuthService,
               private fb : FormBuilder,
-              private apiService : ApiService) {
+              private apiService : ApiService,
+              private jwtService : JwtService,
+              private router : Router) {
     this.signInForm = fb.group({
       email : ['',Validators.compose([
                 Validators.required,
@@ -33,6 +39,10 @@ export class SigninComponent implements OnInit {
     this.apiService.signInRequest(this.signInDetails).subscribe(
       signin=>{
         console.log(signin,' after subscribe response');
+        this.jwtService.saveToken(signin.token);
+        this.apiService.sendIsLoginValue(false);
+        this.router.navigate(['/dashboard']);
+        //console.log(signin.token);
       }
     )
     this.signInForm.reset();
@@ -70,6 +80,14 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.token = this.jwtService.getToken();
+    if(this.token == null){
+      this.isLogin = false;
+
+    }
+    else{
+      this.isLogin = true;
+    }
   }
 
 }

@@ -43,7 +43,12 @@ export class SignupComponent implements OnInit {
     console.log(this.signUpForm.value);
     this.apiService.signUpRequest(this.signUpDetails).subscribe(
       signup=>{
-        console.log(signup);
+        if(signup){
+          console.log(signup);
+        }
+        else{
+          console.log('User already exists...');
+        }
       }
     )
     this.signUpForm.reset();

@@ -6,12 +6,16 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { SetnewpasswordComponent } from './setnewpassword/setnewpassword.component';
+import { AuthGuard } from './core/services/auth-guard.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const appRoutes: Routes = [
   { path: '' , component: SigninComponent },
   { path: 'signup' , component: SignupComponent },
   { path: 'forgotpassword' , component: ForgotpasswordComponent },
-  { path: 'setnewpassword' , component: SetnewpasswordComponent }
+  { path: 'setnewpassword' , component: SetnewpasswordComponent },
+  { path: 'dashboard' , component : DashboardComponent ,canActivate: [AuthGuard] },
+  { path: '**' , component : SigninComponent }
 ];
 
 @NgModule({
