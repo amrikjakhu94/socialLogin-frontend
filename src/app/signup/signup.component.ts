@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ApiService } from '../core/services/api.service';
-import { MessageService } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
+import { ToasterService } from '../core/services/toaster.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,8 +17,7 @@ export class SignupComponent implements OnInit {
 
   constructor(private fb : FormBuilder,
               private apiService : ApiService,
-              private messageService: MessageService,
-              private toastrService : ToastrService) { 
+              private toasterService : ToasterService) { 
     this.signUpForm = fb.group({
       name : ['',Validators.compose([
         Validators.required
@@ -38,14 +37,6 @@ export class SignupComponent implements OnInit {
     }, { validator: this.passwordMatchValidator });
   }
 
-  showSuccess() {
-    this.toastrService.success('New user registered!', 'You can now login with your credentials!');
-  }
-
-  showError() {
-    this.messageService.add({severity:'error', summary: 'Error Message', detail:'Validation failed'});
-  }
-
   passwordMatchValidator(formGroup: FormGroup) {
     return formGroup.get('password').value === formGroup.get('confirmpassword').value
       ? null : { 'mismatch': true };
@@ -60,17 +51,13 @@ export class SignupComponent implements OnInit {
         if(signup){
           console.log(signup);
           this.signupSpinner = false;
-          this.showSuccess();
-        }
-        else{
-          console.log('User already exists...');
-          this.signupSpinner = false;
+          this.toasterService.showSuccess('New user '+signup.User,'Success');
         }
       },
       error=>{
         console.log(error.error,'ooooooooooooooooooooooo');
         this.signupSpinner = false;
-        this.showError();
+        this.toasterService.showError('User '+error.error.User,'Error');
       }
     )
     this.signUpForm.reset();

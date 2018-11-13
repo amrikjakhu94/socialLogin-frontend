@@ -4,6 +4,7 @@ import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from 'n
 import { ApiService } from '../core/services/api.service';
 import { JwtService } from '../core/services/jwt.service';
 import { Router } from '@angular/router';
+import { ToasterService } from '../core/services/toaster.service';
 
 @Component({
   selector: 'app-signin',
@@ -22,7 +23,8 @@ export class SigninComponent implements OnInit {
               private fb : FormBuilder,
               private apiService : ApiService,
               private jwtService : JwtService,
-              private router : Router) {
+              private router : Router,
+              private toasterService : ToasterService) {
     this.signInForm = fb.group({
       email : ['',Validators.compose([
                 Validators.required,
@@ -54,6 +56,7 @@ export class SigninComponent implements OnInit {
       },
       error=>{
         console.log(error.error,'ppppppppppp');
+        this.toasterService.showError(error.error.auth,'Account not verified');
         this.loginSpinner = false;
       }
     )
