@@ -16,6 +16,7 @@ export class SigninComponent implements OnInit {
   signInDetails : Object;
   token: string;
   isLogin: boolean;
+  loginSpinner : boolean = false;
 
   constructor(private socialAuthService : SocialAuthService,
               private fb : FormBuilder,
@@ -35,14 +36,25 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit(){
+    this.loginSpinner = true;
     this.signInDetails = this.signInForm.value;
     this.apiService.signInRequest(this.signInDetails).subscribe(
       signin=>{
-        console.log(signin,' after subscribe response');
-        this.jwtService.saveToken(signin.token);
-        this.apiService.sendIsLoginValue(false);
-        this.router.navigate(['/dashboard']);
-        //console.log(signin.token);
+        if(signin){
+          console.log(signin,' after subscribe response');
+          this.jwtService.saveToken(signin.token);
+          this.apiService.sendIsLoginValue(false);
+          this.router.navigate(['/dashboard']);
+          //console.log(signin.token);
+          this.loginSpinner = false;
+        }
+        else{
+          console.log('Error in signIn...')
+        }
+      },
+      error=>{
+        console.log(error.error,'ppppppppppp');
+        this.loginSpinner = false;
       }
     )
     this.signInForm.reset();

@@ -26,12 +26,14 @@ export class ApiService {
 
   signInRequest(signIn : Object):Observable<any>{
     console.log('Entered signIn request in apiService');
-    return this.http.post('http://localhost:3000/signin',signIn);
+    // return this.http.post('http://localhost:3000/signin',signIn);
+    return this.http.post('https://stormy-ravine-20860.herokuapp.com/signin',signIn);
   }
 
   signUpRequest(signUp : Object):Observable<any>{
     console.log('Entered signUp request  in apiService');
-    return this.http.post('http://localhost:3000/signup',signUp);
+    // return this.http.post('http://localhost:3000/signup',signUp);
+    return this.http.post('https://stormy-ravine-20860.herokuapp.com/signup',signUp);
   }
 
   isAuthenticated(){
@@ -41,7 +43,8 @@ export class ApiService {
 
   forgotPasswordRequest(forgotPassword : Object):Observable<any>{
     console.log('Entered signUp request  in apiService');
-    return this.http.post('http://localhost:3000/forgotpassword',forgotPassword);
+    // return this.http.post('http://localhost:3000/forgotpassword',forgotPassword);
+    return this.http.post('https://stormy-ravine-20860.herokuapp.com/forgotpassword',forgotPassword);
   }
 
 }

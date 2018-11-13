@@ -5,6 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgSocialModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'ng-social';
 import { HttpClientModule } from '@angular/common/http';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing-module';
 import { AppComponent } from './app.component';
@@ -48,7 +55,13 @@ export function getAuthServiceConfigs() {
     BrowserAnimationsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    ProgressSpinnerModule,
+    ToastModule,
+    MessagesModule,
+    MessageModule,
+    ButtonModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {
@@ -56,7 +69,8 @@ export function getAuthServiceConfigs() {
       useFactory: getAuthServiceConfigs
     },
     ApiService,
-    JwtService
+    JwtService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

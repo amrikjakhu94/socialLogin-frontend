@@ -23,7 +23,14 @@
               </span>
             </div>            
             <hr>
-            <button [disabled]="!signInForm.valid" class="btn btn-primary" type="submit">Sign in</button>
+            <div class="row">
+                <div class="col col-md-2">
+                    <button [disabled]="!signInForm.valid" class="btn btn-primary" type="submit">Sign in</button>
+                </div>
+                <div class="col col-md-10">
+                    <p-progressSpinner *ngIf="loginSpinner" [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -39,6 +46,8 @@
      <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
   </div>
 </div>
+
+
 <!-- <br>
 <div class="row">
   <div class="col col-md-12">
