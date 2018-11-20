@@ -3,6 +3,7 @@ import { JwtService } from '../core/services/jwt.service';
 import { Router } from '@angular/router';
 import { ApiService } from '../core/services/api.service';
 import { ToasterService } from '../core/services/toaster.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,21 +11,46 @@ import { ToasterService } from '../core/services/toaster.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  title = 'socialLogin-ng';
+  name: any;
+  user : Object;
+  token : any;
+  isLogin : Boolean;
 
   constructor(private jwtService : JwtService,
               private router : Router,
               private apiService : ApiService,
-              private toasterService : ToasterService) { }
+              private toasterService : ToasterService,
+              private messageService: MessageService) { }
 
   destroyToken(){
     this.jwtService.destroyToken();
-    this.router.navigate(['/']);
     this.apiService.sendIsLoginValue(true);
+    this.toasterService.showSuccess('You are now logged out','Logout success');
+    this.router.navigate(['/']);
+  }
+
+  myprofile(){
+      this.apiService.getMyProfile().subscribe(
+      user=>{
+        this.user = user;
+      },
+      error=>{
+        console.log(error);
+      }
+    )
   }
 
   ngOnInit() {
-    //this.apiService.sendIsLoginValue(false);
-    this.toasterService.showSuccess('','');
+
+    this.token = this.jwtService.getToken();
+    if(this.token == null){
+      this.isLogin = false;
+    }
+    else{
+      this.isLogin = true;
+    }
+    this.myprofile();
   }
 
 }

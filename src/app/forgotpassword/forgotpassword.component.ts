@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ApiService } from '../core/services/api.service';
 import { ToasterService } from '../core/services/toaster.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -16,7 +17,8 @@ export class ForgotpasswordComponent implements OnInit {
 
   constructor(private fb : FormBuilder,
               private apiService : ApiService,
-              private toasterService : ToasterService) {
+              private toasterService : ToasterService,
+              private router : Router) {
     this.forgotPasswordForm = fb.group({
       email : ['',Validators.compose([
                 Validators.required,
@@ -30,14 +32,15 @@ export class ForgotpasswordComponent implements OnInit {
     this.forgotPasswordDetails = this.forgotPasswordForm.value;
     this.apiService.forgotPasswordRequest(this.forgotPasswordDetails).subscribe(
       forgotpassword=>{
-        this.toasterService.showSuccess(forgotpassword.sent,'Success');
-        console.log(forgotpassword,' after subscribe response');
+        this.toasterService.showSuccess(forgotpassword.success,'Success');
         this.forgotpasswordSpinner = false;
+        console.log(forgotpassword,' after subscribe response');
+        this.router.navigate(['/']);
       },
       error=>{
-        console.log(error.error,'ooooooooooooooooooooooo');
+        console.log(error.error,'Error occured');
         this.forgotpasswordSpinner = false;
-        this.toasterService.showError('Email not sent','Error');
+        this.toasterService.showError(error.error.error,'Error');
       }
     )
     this.forgotPasswordForm.reset();

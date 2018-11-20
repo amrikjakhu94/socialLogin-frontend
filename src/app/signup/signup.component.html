@@ -1,9 +1,10 @@
+<app-header></app-header>
 <div class="row" style="margin:0 auto;">
     <div class="col col-md-6">
         <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
 
             <label>Name</label>
-            <input class="form-control" type="text" formControlName="name" placeholder="Enter name" required />
+            <input class="form-control" type="text" formControlName="name" placeholder="Enter fullname" required />
             <div *ngIf="signUpForm.controls['name'].errors && (signUpForm.controls['name'].dirty || signUpForm.controls['name'].touched)">
               <span class="redxx" *ngIf="signUpForm.controls['name'].errors.required">
                 Name is required.
@@ -42,7 +43,7 @@
             <input class="form-control" type="password" formControlName="confirmpassword" placeholder="Confirn password" required />
             <div *ngIf="signUpForm.controls['confirmpassword'].errors && (signUpForm.controls['confirmpassword'].dirty || signUpForm.controls['confirmpassword'].touched)">
               <span class="redxx" *ngIf="signUpForm.controls['confirmpassword'].errors.required">
-                Password is required.
+                Confirm password is required.
               </span>
               <span class="redxx" *ngIf="signUpForm.controls['confirmpassword'].errors.pattern">
                 Password must be at least 8 characters, and must include at least one numeric digit one upercase alphabet.

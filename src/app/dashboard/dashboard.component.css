@@ -1,0 +1,10 @@
+ul li{
+    float: left;
+    display: inline;
+    margin-left: 20px;
+    color: #077fde;
+    text-decoration: none;
+}
+img{
+    max-width: 100px;
+}

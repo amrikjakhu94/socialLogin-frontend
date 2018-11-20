@@ -1,0 +1,20 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="row" style="text-align:center">
+    <div class="col col-md-12">
+        <h2>
+        Welcome to {{ title }}!
+        </h2>
+
+        <ul *ngIf="!isLogin">
+        <li >
+            <a routerLink="/" routerLinkActive="active">Sign in</a>
+        </li>
+        <li>
+            <a routerLink="/signup" routerLinkActive="active">Sign up</a>
+        </li>
+        <li>
+            <a routerLink="/forgotpassword" routerLinkActive="active">Forgot password ?</a>
+        </li>
+        </ul>
+    </div>
+</div>

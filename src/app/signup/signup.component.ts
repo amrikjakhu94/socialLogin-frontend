@@ -3,6 +3,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { ApiService } from '../core/services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { ToasterService } from '../core/services/toaster.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,8 @@ export class SignupComponent implements OnInit {
 
   constructor(private fb : FormBuilder,
               private apiService : ApiService,
-              private toasterService : ToasterService) { 
+              private toasterService : ToasterService,
+              private router : Router) { 
     this.signUpForm = fb.group({
       name : ['',Validators.compose([
         Validators.required
@@ -51,16 +53,16 @@ export class SignupComponent implements OnInit {
         if(signup){
           console.log(signup);
           this.signupSpinner = false;
-          this.toasterService.showSuccess('New user '+signup.User,'Success');
+          this.toasterService.showSuccess(signup.success,'Success');
+          this.router.navigate(['/']);
         }
       },
       error=>{
-        console.log(error.error,'ooooooooooooooooooooooo');
         this.signupSpinner = false;
-        this.toasterService.showError('User '+error.error.User,'Error');
+        this.toasterService.showError(error.error.error,'Error');
       }
     )
-    this.signUpForm.reset();
+    // this.signUpForm.reset();
   }
 
   ngOnInit() {

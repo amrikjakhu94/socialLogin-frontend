@@ -9,10 +9,10 @@ export class ToasterService {
   constructor(private toastrService : ToastrService) { }
 
   showSuccess(message: string,title : string) {
-    this.toastrService.success(`${message}`, `${title}`);
+    this.toastrService.success(message,title);
   }
 
   showError(message: string,title : string) {
-    this.toastrService.error(`${message}`, `${title}`);
+    this.toastrService.error(message,title);
   }
 }

@@ -22,6 +22,7 @@ import { SetnewpasswordComponent } from './setnewpassword/setnewpassword.compone
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { JwtService } from './core/services/jwt.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './header/header.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -46,7 +47,8 @@ export function getAuthServiceConfigs() {
     SigninComponent,
     SetnewpasswordComponent,
     ForgotpasswordComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

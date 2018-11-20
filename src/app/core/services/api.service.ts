@@ -12,28 +12,58 @@ export class ApiService {
   constructor(private http : HttpClient,
               private jwtService : JwtService) { }
 
-  private subject = new BehaviorSubject<any>(true);
-
-  public mysubject = this.subject.asObservable();
+  private profile = new BehaviorSubject<any>(true);
+  public myprofile = this.profile.asObservable();
 
   getIsLoginValue(): Observable<any> {
-    return this.subject.asObservable();
+    return this.profile.asObservable();
   }
 
   sendIsLoginValue(data) {
-    this.subject.next(data);
+    this.profile.next(data);
+  }
+
+  gethttpOptions(){
+    let token = this.jwtService.getToken();
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'x-auth-token': token
+      })
+    };
+    return httpOptions;
+  }
+
+  getMyProfile(){
+    let httpOptions = this.gethttpOptions();
+    return this.http.get('http://localhost:3000/myprofile',httpOptions);
+    // return this.http.post('https://stormy-ravine-20860.herokuapp.com/myprofile',httpOptions);
+  }
+
+  setNewPasswordRequest(setNewPassword : Object):Observable<any>{
+    return this.http.post('http://localhost:3000/postsetnewpassword',setNewPassword);
+  }
+
+  setNewPassword(paramsValue : Object):Observable<any>{
+    return this.http.post('http://localhost:3000/setnewpassword',paramsValue);
   }
 
   signInRequest(signIn : Object):Observable<any>{
+    // console.log('Entered signIn request in apiService');
+    return this.http.post('http://localhost:3000/signin',signIn);
+    // return this.http.post('https://stormy-ravine-20860.herokuapp.com/signin',signIn);
+  }
+
+  socialSignInRequest(socialSignIn : Object):Observable<any>{
     console.log('Entered signIn request in apiService');
-    // return this.http.post('http://localhost:3000/signin',signIn);
-    return this.http.post('https://stormy-ravine-20860.herokuapp.com/signin',signIn);
+    return this.http.post('http://localhost:3000/socialsignin',socialSignIn);
+    // return this.http.post('https://stormy-ravine-20860.herokuapp.com/signin',signIn);
   }
 
   signUpRequest(signUp : Object):Observable<any>{
     console.log('Entered signUp request  in apiService');
-    // return this.http.post('http://localhost:3000/signup',signUp);
-    return this.http.post('https://stormy-ravine-20860.herokuapp.com/signup',signUp);
+    return this.http.post('http://localhost:3000/signup',signUp);
+    // return this.http.post('https://stormy-ravine-20860.herokuapp.com/signup',signUp);
   }
 
   isAuthenticated(){
@@ -43,8 +73,8 @@ export class ApiService {
 
   forgotPasswordRequest(forgotPassword : Object):Observable<any>{
     console.log('Entered signUp request  in apiService');
-    // return this.http.post('http://localhost:3000/forgotpassword',forgotPassword);
-    return this.http.post('https://stormy-ravine-20860.herokuapp.com/forgotpassword',forgotPassword);
+    return this.http.post('http://localhost:3000/forgotpassword',forgotPassword);
+    // return this.http.post('https://stormy-ravine-20860.herokuapp.com/forgotpassword',forgotPassword);
   }
 
 }

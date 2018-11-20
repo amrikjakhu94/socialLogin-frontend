@@ -12,12 +12,13 @@ import { ToasterService } from '../core/services/toaster.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-  title = 'socialLogin-ng';
   signInForm : FormGroup;
   signInDetails : Object;
+  socialSignInDetails : Object;
   token: string;
   isLogin: boolean;
   loginSpinner : boolean = false;
+  name : String;
 
   constructor(private socialAuthService : SocialAuthService,
               private fb : FormBuilder,
@@ -43,24 +44,25 @@ export class SigninComponent implements OnInit {
     this.apiService.signInRequest(this.signInDetails).subscribe(
       signin=>{
         if(signin){
-          console.log(signin,' after subscribe response');
+          // console.log(signin,' after subscribe response');
+          const userDetails = { signin , isLogin : true };
           this.jwtService.saveToken(signin.token);
-          this.apiService.sendIsLoginValue(false);
+          this.apiService.sendIsLoginValue(userDetails);
+          this.toasterService.showSuccess(signin.user.name,'Login success');
           this.router.navigate(['/dashboard']);
-          //console.log(signin.token);
           this.loginSpinner = false;
+          this.signInForm.reset();
         }
         else{
-          console.log('Error in signIn...')
+          console.log('Error in signIn...');
         }
       },
       error=>{
         console.log(error.error,'ppppppppppp');
-        this.toasterService.showError(error.error.auth,'Account not verified');
+        this.toasterService.showError(error.error.error,'Error');
         this.loginSpinner = false;
       }
     )
-    this.signInForm.reset();
   }
 
   // onSignIn(googleUser) {
@@ -81,28 +83,30 @@ export class SigninComponent implements OnInit {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
 
-    this.socialAuthService.signIn(socialPlatformProvider).then((userData) => {
-      //console.log(platform + " login in data : " , userData);
-      this.signInDetails = userData;
-      console.log(this.signInDetails);
-      this.apiService.signInRequest(this.signInDetails).subscribe(
-        signin=>{
-          console.log(signin);
-        }
-      )
-    });
-
-  }
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (socialUserData) => {
+        this.socialSignInDetails = socialUserData;
+        this.apiService.socialSignInRequest(this.socialSignInDetails).subscribe(
+          socialuser=>{
+            const userDetails = { socialuser , isLogin : true };
+            this.jwtService.saveToken(socialuser.token);
+            this.apiService.sendIsLoginValue(userDetails);
+            this.toasterService.showSuccess('Welcome '+userDetails.socialuser.user.name,'Login Success')
+            this.router.navigate(['/dashboard']);
+          }
+        )
+      });
+    }
 
   ngOnInit() {
-    this.token = this.jwtService.getToken();
-    if(this.token == null){
-      this.isLogin = false;
 
-    }
-    else{
-      this.isLogin = true;
-    }
+    // this.token = this.jwtService.getToken();
+    // if(this.token == null){
+    //   this.isLogin = false;
+    // }
+    // else{
+    //   this.isLogin = true;
+    // }
   }
 
 }
