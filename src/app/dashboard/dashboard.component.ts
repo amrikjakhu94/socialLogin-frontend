@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../core/services/api.service';
 import { ToasterService } from '../core/services/toaster.service';
 import { MessageService } from 'primeng/api';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,12 +17,48 @@ export class DashboardComponent implements OnInit {
   user : Object;
   token : any;
   isLogin : Boolean;
+  signupSpinner : boolean = false;
+  imageUploadForm : FormGroup;
+  imageDetails : Object;
+  selectedFiles: any;
 
-  constructor(private jwtService : JwtService,
+  constructor(private fb : FormBuilder,
+              private jwtService : JwtService,
               private router : Router,
               private apiService : ApiService,
               private toasterService : ToasterService,
-              private messageService: MessageService) { }
+              private messageService: MessageService) {
+        
+      this.imageUploadForm = fb.group({
+        image : ['',Validators.required]
+      });
+    }
+
+    onSubmit(){
+      this.signupSpinner = true;
+      this.imageDetails = this.imageUploadForm.value;
+      console.log(this.imageDetails);
+      this.apiService.imageUploadRequest(this.imageDetails).subscribe(
+        upload=>{
+          if(upload){
+            console.log(upload);
+            this.signupSpinner = false;
+            this.toasterService.showSuccess(upload.success,'Success');
+            // this.router.navigate(['/dashboard']);
+            this.myprofile();
+          }
+        },
+        error=>{
+          this.signupSpinner = false;
+          this.toasterService.showError(error.error.error,'Error');
+        }
+      )
+    }
+
+    filechange(event){
+      // this.selectedFiles = event.target.files(0);
+      console.log(event.target,'uuuu');
+    }
 
   destroyToken(){
     this.jwtService.destroyToken();
@@ -50,6 +87,7 @@ export class DashboardComponent implements OnInit {
     else{
       this.isLogin = true;
     }
+
     this.myprofile();
   }
 

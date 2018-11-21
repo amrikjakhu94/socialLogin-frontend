@@ -1,3 +1,20 @@
 .err{
     color: red;
 }
+.gplus_icon {
+    border: 1px solid #979797;
+    border-radius: 2px;
+    color: #4a4a4a;
+    display: inline-block;
+    padding: 10px 4px 10px 35px;
+    text-align: left;
+    font-family: Lato-Semibold,Arial,Helvetica,sans-serif;
+    position: relative;
+}
+.width180 {
+    width: 180px;
+}
+a {
+    background-color: transparent;
+    /* -webkit-text-decoration-skip: objects; */
+}

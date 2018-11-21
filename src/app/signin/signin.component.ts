@@ -48,7 +48,7 @@ export class SigninComponent implements OnInit {
           const userDetails = { signin , isLogin : true };
           this.jwtService.saveToken(signin.token);
           this.apiService.sendIsLoginValue(userDetails);
-          this.toasterService.showSuccess(signin.user.name,'Login success');
+          this.toasterService.showSuccess('Welcome '+signin.user.name,'Login success');
           this.router.navigate(['/dashboard']);
           this.loginSpinner = false;
           this.signInForm.reset();
