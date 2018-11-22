@@ -21,6 +21,9 @@ export class DashboardComponent implements OnInit {
   imageUploadForm : FormGroup;
   imageDetails : Object;
   selectedFiles: any;
+  imageChangedEvent: any = '';
+  fileNameData: any;
+  fileName: any;
 
   constructor(private fb : FormBuilder,
               private jwtService : JwtService,
@@ -34,11 +37,19 @@ export class DashboardComponent implements OnInit {
       });
     }
 
+    filechange(event :any){
+      // console.log(event,'111111');
+      this.imageChangedEvent = event;
+      this.fileName = event.target.files[0];
+      // console.log(this.fileName,'aaaaaa');
+      this.fileNameData = this.fileName.name;
+      // console.log(this.fileNameData,'oo');
+    }
     onSubmit(){
       this.signupSpinner = true;
       this.imageDetails = this.imageUploadForm.value;
-      console.log(this.imageDetails);
-      this.apiService.imageUploadRequest(this.imageDetails).subscribe(
+      console.log(this.fileName,'2222222222222222222222');
+      this.apiService.imageUploadRequest(this.fileName).subscribe(
         upload=>{
           if(upload){
             console.log(upload);
@@ -53,11 +64,6 @@ export class DashboardComponent implements OnInit {
           this.toasterService.showError(error.error.error,'Error');
         }
       )
-    }
-
-    filechange(event){
-      // this.selectedFiles = event.target.files(0);
-      console.log(event.target,'uuuu');
     }
 
   destroyToken(){

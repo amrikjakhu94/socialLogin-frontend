@@ -99,7 +99,6 @@ export class SigninComponent implements OnInit {
     }
 
   ngOnInit() {
-
     // this.token = this.jwtService.getToken();
     // if(this.token == null){
     //   this.isLogin = false;

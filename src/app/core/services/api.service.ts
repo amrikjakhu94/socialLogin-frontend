@@ -34,9 +34,9 @@ export class ApiService {
     return httpOptions;
   }
 
-  imageUploadRequest(image : Object):Observable<any>{
+  imageUploadRequest(image : any):Observable<any>{
     let httpOptions = this.gethttpOptions();
-    return this.http.post('http://localhost:3000/postimage',image, httpOptions);
+    return this.http.post('http://localhost:3000/upload',image, httpOptions);
   }
 
   getMyProfile(){

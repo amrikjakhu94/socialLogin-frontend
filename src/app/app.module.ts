@@ -12,6 +12,7 @@ import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxUploaderModule } from 'ngx-uploader';
 
 import { AppRoutingModule } from './app-routing-module';
 import { AppComponent } from './app.component';
@@ -63,7 +64,8 @@ export function getAuthServiceConfigs() {
     MessagesModule,
     MessageModule,
     ButtonModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxUploaderModule
   ],
   providers: [
     {
