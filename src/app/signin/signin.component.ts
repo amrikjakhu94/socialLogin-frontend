@@ -44,7 +44,6 @@ export class SigninComponent implements OnInit {
     this.apiService.signInRequest(this.signInDetails).subscribe(
       signin=>{
         if(signin){
-          // console.log(signin,' after subscribe response');
           const userDetails = { signin , isLogin : true };
           this.jwtService.saveToken(signin.token);
           this.apiService.sendIsLoginValue(userDetails);
@@ -59,7 +58,7 @@ export class SigninComponent implements OnInit {
       },
       error=>{
         console.log(error.error,'ppppppppppp');
-        this.toasterService.showError(error.error.error,'Error');
+        this.toasterService.showWarning(error.error.error,'Warning');
         this.loginSpinner = false;
       }
     )
@@ -86,6 +85,7 @@ export class SigninComponent implements OnInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (socialUserData) => {
         this.socialSignInDetails = socialUserData;
+        // console.log(this.socialSignInDetails);
         this.apiService.socialSignInRequest(this.socialSignInDetails).subscribe(
           socialuser=>{
             const userDetails = { socialuser , isLogin : true };
