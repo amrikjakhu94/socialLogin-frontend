@@ -34,6 +34,11 @@ export class ApiService {
     return httpOptions;
   }
 
+  uploadFile11(imageData:FormData){
+    console.log(imageData,'api service');
+    return this.http.post(`http://localhost:3000/uploadfile99`,imageData);
+  }
+
   imageUploadRequest(image : any):Observable<any>{
     let httpOptions = this.gethttpOptions();
     return this.http.post('http://localhost:3000/upload',image, httpOptions);

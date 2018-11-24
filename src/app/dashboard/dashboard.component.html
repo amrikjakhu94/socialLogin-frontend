@@ -41,5 +41,23 @@
   </div>
 </div>
 
+<div class="col-md-3">
+  <div class="form-group">
+    <label>Upload Image</label>
+    <!-- <input type="file" [(ngModel)]="uploadImage" formControlName="uploadImage" name="uploadImage" (change)="onFileChange($event)" />  -->
+    <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" placeholder="Upload Image" multiple>
+    <button type="button" class="start-upload-btn" (click)="onUploadOutput1()">
+      Start Upload
+    </button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col col-md-4">
+    <input type="file" (change)="fileChange99($event)">
+    <button (click)="fileUpload99()">Upload99</button>
+  </div>
+</div>
+
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <!-- <button (click)="xxx()">Done</button> -->
