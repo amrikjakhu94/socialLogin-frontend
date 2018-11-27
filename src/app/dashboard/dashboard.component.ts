@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   imageUploadForm : FormGroup;
   imageDetails : Object;
   selectedFiles: any;
-  imageChangedEvent: any = '';
+  imageChangedEvent: any;
   fileNameData: any;
   fileName: any;
   files: UploadFile[];
@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit {
                 this.humanizeBytes = humanizeBytes;
         
       this.imageUploadForm = fb.group({
+        name : ['',Validators.required],
         image : ['',Validators.required]
       });
     }
@@ -63,68 +64,33 @@ export class DashboardComponent implements OnInit {
      fileUpload99(){
       const fd = new FormData();
       fd.append('amrik',this.selectedFile,this.selectedFile.name);
-      this.apiService.uploadFile11(fd).subscribe(
+      this.apiService.uploadFile99(fd).subscribe(
         (data)=>{
           console.log(data);
+          this.myprofile();
           // console.log("Posted to server");
         });
       }
 
 
 
-
-    onUploadOutput1(): void {
-      console.log('qqqqqqq3333');
-        
-        const event: UploadInput = {
-          type: 'uploadAll',
-          url: 'http://localhost:3000/fileUpload',
-          method: 'POST',
-          data : {file:"asd"}
-        };
-        this.uploadInput.emit(event);
-      }
-        onUploadOutput(output: UploadOutput): void {
-       if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') { // add file to array when added
-        this.files.push(output.file);
-      } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
-        // update current data in files array for uploading file
-        const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
-        this.files[index] = output.file;
-      } else if (output.type === 'removed') {
-        // remove file from array when removed
-        this.files = this.files.filter((file: UploadFile) => file !== output.file);
-      } else if (output.type === 'dragOver') {
-        this.dragOver = true;
-      } else if (output.type === 'dragOut') {
-        this.dragOver = false;
-      } else if (output.type === 'drop') {
-        this.dragOver = false;
-      }
-      else if (output.type === 'done') {
-        console.log(output,"=======");
-      }
-    }
-
-
-
-
-
-
-
     filechange(event :any){
       // console.log(event,'111111');
-      this.imageChangedEvent = event;
-      this.fileName = event.target.files[0];
+      this.fileName = <File>event.target.files[0];
       // console.log(this.fileName,'aaaaaa');
-      this.fileNameData = this.fileName.name;
+      // this.fileNameData = this.fileName.name;
       // console.log(this.fileNameData,'oo');
     }
     onSubmit(){
       this.signupSpinner = true;
       this.imageDetails = this.imageUploadForm.value;
       console.log(this.fileName,'2222222222222222222222');
-      this.apiService.imageUploadRequest(this.fileName).subscribe(
+
+      const fdd = new FormData();
+      fdd.append('name',this.imageUploadForm.value.name)
+      fdd.append('image',this.fileName,this.fileName.name);      
+
+      this.apiService.imageUploadRequest(fdd).subscribe(
         upload=>{
           if(upload){
             console.log(upload);

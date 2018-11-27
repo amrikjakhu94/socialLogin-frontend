@@ -34,6 +34,8 @@
     <div class="col col-md-6">
       <form [formGroup]="imageUploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" >
         <label>change profile picture...click button here</label>
+        <input type="text" class="form-control" name="name" formControlName="name" placeholder="Enter name" />
+        <br>
         <input type="file" class="form-control" name="image" (change)="filechange($event)" formControlName="image" />
         <button [disabled]="!imageUploadForm.valid" class="btn btn-primary" type="submit">Image upload</button>
       </form>
@@ -41,16 +43,6 @@
   </div>
 </div>
 
-<div class="col-md-3">
-  <div class="form-group">
-    <label>Upload Image</label>
-    <!-- <input type="file" [(ngModel)]="uploadImage" formControlName="uploadImage" name="uploadImage" (change)="onFileChange($event)" />  -->
-    <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" placeholder="Upload Image" multiple>
-    <button type="button" class="start-upload-btn" (click)="onUploadOutput1()">
-      Start Upload
-    </button>
-  </div>
-</div>
 <hr>
 <div class="row">
   <div class="col col-md-4">

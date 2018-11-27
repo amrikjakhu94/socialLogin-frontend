@@ -23,6 +23,8 @@
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
     "ng-social": "^1.0.0",
+    "ngx-cropper": "^2.0.0-beta",
+    "ngx-image-cropper": "^1.2.3",
     "ngx-toastr": "^9.1.1",
     "ngx-uploader": "^7.0.0",
     "primeicons": "^1.0.0",
