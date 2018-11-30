@@ -44,6 +44,7 @@ export class SigninComponent implements OnInit {
     this.apiService.signInRequest(this.signInDetails).subscribe(
       signin=>{
         if(signin){
+          console.log(signin);
           const userDetails = { signin , isLogin : true };
           this.jwtService.saveToken(signin.token);
           this.apiService.sendIsLoginValue(userDetails);
@@ -85,7 +86,7 @@ export class SigninComponent implements OnInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (socialUserData) => {
         this.socialSignInDetails = socialUserData;
-        // console.log(this.socialSignInDetails);
+        console.log(this.socialSignInDetails);
         this.apiService.socialSignInRequest(this.socialSignInDetails).subscribe(
           socialuser=>{
             const userDetails = { socialuser , isLogin : true };
