@@ -11,39 +11,38 @@ import { Router } from '@angular/router';
 })
 export class ForgotpasswordComponent implements OnInit {
 
-  forgotPasswordForm: FormGroup;
-  forgotPasswordDetails: Object;
-  forgotpasswordSpinner = false;
+  forgotPasswordForm : FormGroup;
+  forgotPasswordDetails : Object;
+  forgotpasswordSpinner : boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private apiService: ApiService,
-              private toasterService: ToasterService,
-              private router: Router) {
+  constructor(private fb : FormBuilder,
+              private apiService : ApiService,
+              private toasterService : ToasterService,
+              private router : Router) {
     this.forgotPasswordForm = fb.group({
-      email : ['', Validators.compose([
+      email : ['',Validators.compose([
                 Validators.required,
-                // tslint:disable-next-line:max-line-length
                 Validators.pattern(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)
               ])]
     });
   }
 
-  onSubmit() {
+  onSubmit(){
     this.forgotpasswordSpinner = true;
     this.forgotPasswordDetails = this.forgotPasswordForm.value;
     this.apiService.forgotPasswordRequest(this.forgotPasswordDetails).subscribe(
-      forgotpassword => {
-        this.toasterService.showSuccess(forgotpassword.success, 'Success');
+      forgotpassword=>{
+        this.toasterService.showSuccess(forgotpassword.success,'Success');
         this.forgotpasswordSpinner = false;
-        console.log(forgotpassword, ' after subscribe response');
+        console.log(forgotpassword,' after subscribe response');
         this.router.navigate(['/']);
       },
-      error => {
-        console.log(error.error, 'Error occured');
+      error=>{
+        console.log(error.error,'Error occured');
         this.forgotpasswordSpinner = false;
-        this.toasterService.showError(error.error.error, 'Error');
+        this.toasterService.showError(error.error.error,'Error');
       }
-    );
+    )
     this.forgotPasswordForm.reset();
   }
 

@@ -12,28 +12,27 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  signUpForm: FormGroup;
+  signUpForm : FormGroup;
   signUpDetails: Object;
-  signupSpinner = false;
+  signupSpinner : boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private apiService: ApiService,
-              private toasterService: ToasterService,
-              private router: Router) {
+  constructor(private fb : FormBuilder,
+              private apiService : ApiService,
+              private toasterService : ToasterService,
+              private router : Router) { 
     this.signUpForm = fb.group({
-      name : ['', Validators.compose([
+      name : ['',Validators.compose([
         Validators.required
       ])],
-      email : ['', Validators.compose([
+      email : ['',Validators.compose([
         Validators.required,
-        // tslint:disable-next-line:max-line-length
         Validators.pattern(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)
       ])],
-      password : ['', Validators.compose([
+      password : ['',Validators.compose([
         Validators.required,
         Validators.minLength(4)
       ])],
-      confirmpassword : ['', Validators.compose([
+      confirmpassword : ['',Validators.compose([
         Validators.required,
         Validators.minLength(4)
       ])]
@@ -45,24 +44,24 @@ export class SignupComponent implements OnInit {
       ? null : { 'mismatch': true };
   }
 
-  onSubmit() {
+  onSubmit(){
     this.signupSpinner = true;
     this.signUpDetails = this.signUpForm.value;
-    // console.log(this.signUpForm.value);
+    //console.log(this.signUpForm.value);
     this.apiService.signUpRequest(this.signUpDetails).subscribe(
-      signup => {
-        if (signup) {
+      signup=>{
+        if(signup){
           console.log(signup);
           this.signupSpinner = false;
-          this.toasterService.showSuccess(signup.success, 'Success');
+          this.toasterService.showSuccess(signup.success,'Success');
           this.router.navigate(['/']);
         }
       },
-      error => {
+      error=>{
         this.signupSpinner = false;
-        this.toasterService.showError(error.error.error, 'Error');
+        this.toasterService.showError(error.error.error,'Error');
       }
-    );
+    )
     // this.signUpForm.reset();
   }
 

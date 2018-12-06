@@ -5,13 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class JwtService {
 
-  getToken(): string {
+  getToken() : string {
     return window.localStorage.getItem('jwtToken');
   }
-  saveToken(token: string) {
-      window.localStorage.setItem('jwtToken', token);
+  saveToken(token : string){
+      window.localStorage.setItem('jwtToken',token);
   }
-  destroyToken() {
+  destroyToken(){
       window.localStorage.removeItem('jwtToken');
       localStorage.removeItem('username');
   }

@@ -1,0 +1,55 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="row" style="text-align:center">
+  <div class="col col-md-12">
+      <h2>
+      Welcome to {{ title }}!
+      </h2>
+  </div>
+</div>
+
+<ul>
+<li>
+  <a>{{ user?.name }}</a>
+</li>
+<li>
+  <a (click)="destroyToken()">Logout</a>
+</li>
+</ul>
+<br>
+<hr>
+
+<div style="width: 80%;margin: 0 auto">
+  <div class="row">
+    <div style="width: 30%" class="col col-md-6">
+      Hello {{ user?.name }}
+    </div>
+    <div style="width: 30%" class="col col-md-6">
+      <img src="{{user?.image}}" alt="Profile photo" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-6">
+
+    </div>
+    <div class="col col-md-6">
+      <form [formGroup]="imageUploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" >
+        <label>change profile picture...click button here</label>
+        <input type="text" class="form-control" name="name" formControlName="name" placeholder="Enter name" />
+        <br>
+        <input type="file" class="form-control" name="image" (change)="filechange($event)" formControlName="image" />
+        <button [disabled]="!imageUploadForm.valid" class="btn btn-primary" type="submit">Image upload</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col col-md-4">
+    <input type="file" (change)="fileChange99($event)">
+    <button (click)="fileUpload99()">Upload99</button>
+  </div>
+</div>
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<!-- <button (click)="xxx()">Done</button> -->

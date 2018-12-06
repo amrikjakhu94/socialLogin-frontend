@@ -12,57 +12,57 @@ import { ToasterService } from '../core/services/toaster.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-  signInForm: FormGroup;
-  signInDetails: Object;
-  socialSignInDetails: Object;
+  signInForm : FormGroup;
+  signInDetails : Object;
+  socialSignInDetails : Object;
   token: string;
   isLogin: boolean;
-  loginSpinner = false;
-  name: String;
+  loginSpinner : boolean = false;
+  name : String;
 
-  constructor(private socialAuthService: SocialAuthService,
-              private fb: FormBuilder,
-              private apiService: ApiService,
-              private jwtService: JwtService,
-              private router: Router,
-              private toasterService: ToasterService) {
+  constructor(private socialAuthService : SocialAuthService,
+              private fb : FormBuilder,
+              private apiService : ApiService,
+              private jwtService : JwtService,
+              private router : Router,
+              private toasterService : ToasterService) {
     this.signInForm = fb.group({
-      email : ['', Validators.compose([
+      email : ['',Validators.compose([
                 Validators.required,
-                // tslint:disable-next-line:max-line-length
                 Validators.pattern(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)
               ])],
-      password : ['', Validators.compose([
+      password : ['',Validators.compose([
                   Validators.required,
                   Validators.minLength(4)
                   ])]
     });
   }
 
-  onSubmit() {
+  onSubmit(){
     this.loginSpinner = true;
     this.signInDetails = this.signInForm.value;
     this.apiService.signInRequest(this.signInDetails).subscribe(
-      signin => {
-        if (signin) {
+      signin=>{
+        if(signin){
           console.log(signin);
           const userDetails = { signin , isLogin : true };
           this.jwtService.saveToken(signin.token);
           this.apiService.sendIsLoginValue(userDetails);
-          this.toasterService.showSuccess('Welcome ' + signin.user.name, 'Login success');
+          this.toasterService.showSuccess('Welcome '+signin.user.name,'Login success');
           this.router.navigate(['/dashboard']);
           this.loginSpinner = false;
           this.signInForm.reset();
-        } else {
+        }
+        else{
           console.log('Error in signIn...');
         }
       },
-      error => {
-        console.log(error.error, 'ppppppppppp');
-        this.toasterService.showWarning(error.error.error, 'Warning');
+      error=>{
+        console.log(error.error,'ppppppppppp');
+        this.toasterService.showWarning(error.error.error,'Warning');
         this.loginSpinner = false;
       }
-    );
+    )
   }
 
   // onSignIn(googleUser) {
@@ -76,9 +76,10 @@ export class SigninComponent implements OnInit {
   public socialLogin(platform: string) {
     let socialPlatformProvider;
 
-    if (platform === 'facebook') {
+    if(platform == "facebook") {
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    } else if (platform === 'google') {
+    }
+    else if(platform == "google") {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
 
@@ -87,14 +88,14 @@ export class SigninComponent implements OnInit {
         this.socialSignInDetails = socialUserData;
         console.log(this.socialSignInDetails);
         this.apiService.socialSignInRequest(this.socialSignInDetails).subscribe(
-          socialuser => {
+          socialuser=>{
             const userDetails = { socialuser , isLogin : true };
             this.jwtService.saveToken(socialuser.token);
             this.apiService.sendIsLoginValue(userDetails);
-            this.toasterService.showSuccess('Welcome ' + userDetails.socialuser.user.name, 'Login Success');
+            this.toasterService.showSuccess('Welcome '+userDetails.socialuser.user.name,'Login Success')
             this.router.navigate(['/dashboard']);
           }
-        );
+        )
       });
     }
 

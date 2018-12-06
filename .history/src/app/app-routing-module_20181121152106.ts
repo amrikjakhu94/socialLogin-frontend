@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   { path: 'signup' , component: SignupComponent },
   { path: 'forgotpassword' , component: ForgotpasswordComponent },
   { path: 'setnewpassword' , component: SetnewpasswordComponent },
-  { path: 'dashboard' , component : DashboardComponent , canActivate: [AuthGuard] },
+  { path: 'dashboard' , component : DashboardComponent ,canActivate: [AuthGuard] },
 ];
 
 @NgModule({

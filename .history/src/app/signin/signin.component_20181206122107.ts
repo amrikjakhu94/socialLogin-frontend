@@ -29,7 +29,6 @@ export class SigninComponent implements OnInit {
     this.signInForm = fb.group({
       email : ['', Validators.compose([
                 Validators.required,
-                // tslint:disable-next-line:max-line-length
                 Validators.pattern(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)
               ])],
       password : ['', Validators.compose([

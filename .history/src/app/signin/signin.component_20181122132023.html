@@ -1,0 +1,55 @@
+<app-header></app-header>
+<div class="row">
+    <div class="col col-md-12">
+        <div class="row" style="margin:0 auto;">
+            <div class="col col-md-6">
+                <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+                    <label>Email</label>
+                    <input class="form-control" type="text" formControlName="email" placeholder="Enter email" required />
+                    <div *ngIf="signInForm.controls['email'].errors && (signInForm.controls['email'].dirty || signInForm.controls['email'].touched)">
+                    <span class="err" *ngIf="signInForm.controls['email'].errors.required">
+                        Email is required.
+                    </span>
+                    <span class="err" *ngIf="signInForm.controls['email'].errors.pattern">
+                        Email is invalid.
+                    </span>
+                    </div>
+                    <hr>
+                    <label>Password</label>
+                    <input class="form-control" type="password" formControlName="password" placeholder="Password" required />
+                    <div *ngIf="signInForm.controls['password'].errors && (signInForm.controls['password'].dirty || signInForm.controls['password'].touched)">
+                    <span class="err" *ngIf="signInForm.controls['password'].errors.required">
+                        Password is required.
+                    </span>
+                    <span class="err" *ngIf="signInForm.controls['password'].errors.pattern">
+                        Password must be at least 8 characters, and must include at least one numeric digit one upercase alphabet.
+                    </span>
+                    </div>            
+                    <hr>
+                    <div class="row">
+                        <div class="col col-md-2">
+                            <button [disabled]="!signInForm.valid" class="btn btn-primary" type="submit">Sign in</button>
+                        </div>
+                        <div class="col col-md-10">
+                            <p-progressSpinner *ngIf="loginSpinner" [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+        <div class="col col-md-12">
+            <h4>
+                Log in with other social accounts
+            </h4>
+
+            <button (click)="socialLogin('google')">Log in with Google</button>
+            <hr>
+            <!-- <a class="gplus_icon width180" (click)="socialLogin('google')" >Log-in with Google</a> -->
+            <button (click)="socialLogin('facebook')">Log in with Facebook</button>
+            <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+        </div>
+        </div>
+    </div>
+</div>

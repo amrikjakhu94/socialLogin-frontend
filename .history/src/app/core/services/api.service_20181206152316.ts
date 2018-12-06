@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
-import { JwtService } from './jwt.service';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, BehaviorSubject } from "rxjs";
+import { HttpHeaders } from "@angular/common/http";
+import { JwtService } from "./jwt.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ApiService {
   token: String;
@@ -35,46 +35,46 @@ export class ApiService {
   }
 
   uploadFile99(imageData: FormData) {
-    const httpOptions = this.gethttpOptions();
-    console.log(imageData, 'api service');
-    return this.http.post('http://localhost:3000/uploadfile99', imageData);
+    let httpOptions = this.gethttpOptions();
+    console.log(imageData, "api service");
+    return this.http.post("http://localhost:3000/uploadfile99", imageData);
   }
 
   imageUploadRequest(image: any): Observable<any> {
-    const httpOptions = this.gethttpOptions();
-    return this.http.post('http://localhost:3000/uploadimage22', image);
+    let httpOptions = this.gethttpOptions();
+    return this.http.post("http://localhost:3000/uploadimage22", image);
   }
 
   getMyProfile() {
-    const httpOptions = this.gethttpOptions();
-    return this.http.get('http://localhost:3000/myprofile', httpOptions);
+    let httpOptions = this.gethttpOptions();
+    return this.http.get("http://localhost:3000/myprofile", httpOptions);
     // return this.http.post('https://stormy-ravine-20860.herokuapp.com/myprofile',httpOptions);
   }
 
   setNewPasswordRequest(setNewPassword: Object): Observable<any> {
     return this.http.post(
-      'http://localhost:3000/postsetnewpassword',
+      "http://localhost:3000/postsetnewpassword",
       setNewPassword
     );
   }
 
   setNewPassword(paramsValue: Object): Observable<any> {
-    return this.http.post('http://localhost:3000/setnewpassword', paramsValue);
+    return this.http.post("http://localhost:3000/setnewpassword", paramsValue);
   }
 
   signInRequest(signIn: Object): Observable<any> {
-    return this.http.post('http://localhost:3000/signin', signIn);
+    return this.http.post("http://localhost:3000/signin", signIn);
     // return this.http.post('https://stormy-ravine-20860.herokuapp.com/signin',signIn);
   }
 
   socialSignInRequest(socialSignIn: Object): Observable<any> {
-    return this.http.post('http://localhost:3000/socialsignin', socialSignIn);
+    return this.http.post("http://localhost:3000/socialsignin", socialSignIn);
     // return this.http.post('https://stormy-ravine-20860.herokuapp.com/signin',signIn);
   }
 
   signUpRequest(signUp: Object): Observable<any> {
-    console.log('Entered signUp request  in apiService');
-    return this.http.post('http://localhost:3000/signup', signUp);
+    console.log("Entered signUp request  in apiService");
+    return this.http.post("http://localhost:3000/signup", signUp);
     // return this.http.post('https://stormy-ravine-20860.herokuapp.com/signup',signUp);
   }
 
@@ -84,9 +84,9 @@ export class ApiService {
   }
 
   forgotPasswordRequest(forgotPassword: Object): Observable<any> {
-    console.log('Entered signUp request  in apiService');
+    console.log("Entered signUp request  in apiService");
     return this.http.post(
-      'http://localhost:3000/forgotpassword',
+      "http://localhost:3000/forgotpassword",
       forgotPassword
     );
     // return this.http.post('https://stormy-ravine-20860.herokuapp.com/forgotpassword',forgotPassword);
